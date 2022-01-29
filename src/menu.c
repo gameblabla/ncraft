@@ -98,7 +98,7 @@ void mainMenu(void *buffer,char *exit,uint8_t *world,pos *playerPos,float *angle
     drawStringCenter(buffer,"Create new world",(cursor==0) ? white : grey,100);
     drawStringCenter(buffer,"Load world",(cursor==1) ? white : grey,130);
     drawStringCenter(buffer,"Settings",(cursor==2) ? white : grey,160);
-    drawStringCenter(buffer,"Created by Chockosta (Loic Pujet)",grey,225);
+    drawStringCenter(buffer,"By Chockosta (Loic Pujet)",grey,225);
     
     bufDisplay(buffer);
     if(menu)

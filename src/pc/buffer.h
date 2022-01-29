@@ -5,9 +5,9 @@
 
 #define SCREEN_BASE_ADDRESS sdl_screen->pixels
 #ifdef _16BPP
-#define SCREEN_BYTES_SIZE (320*240)*2
+#define SCREEN_BYTES_SIZE (SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)*2
 #else
-#define SCREEN_BYTES_SIZE (320*240)
+#define SCREEN_BYTES_SIZE (SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)
 #endif
 
 //display a buffer on the screen

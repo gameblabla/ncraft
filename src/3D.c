@@ -1,5 +1,8 @@
 #include "3D.h"
 
+//#define FOV 50.0f
+#define FOV 25.0f
+
 void computeVertices(float *vertices,int *pos,int size)
 {
   int i=0;
@@ -8,9 +11,9 @@ void computeVertices(float *vertices,int *pos,int size)
   {
     if(vertices[i*3+1]>0)
     {
-      temp=OFFSET*vertices[i*3]/vertices[i*3+1]*50.0+160.0;
+      temp=OFFSET*vertices[i*3]/vertices[i*3+1]*FOV+(SCREEN_GAME_WIDTH/2);
       pos[i*2]=(int)temp;
-      temp=-OFFSET*vertices[i*3+2]/vertices[i*3+1]*50.0+120.0;
+      temp=-OFFSET*vertices[i*3+2]/vertices[i*3+1]*FOV+(SCREEN_GAME_HEIGHT/2);
       pos[i*2+1]=(int)temp;
     }
     else

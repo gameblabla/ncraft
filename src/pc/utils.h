@@ -9,8 +9,15 @@ extern SDL_Surface* sdl_screen;
 extern int isKeyPressed(int key);
 extern void show_msgbox(char* arr1, char* arr2);
 
+#define SCREEN_GAME_WIDTH 320
+#define SCREEN_GAME_HEIGHT 240
+
 #define SCREEN_BASE_ADDRESS sdl_screen->pixels
-#define SCREEN_BYTES_SIZE (320*240)*2
+#ifdef _16BPP
+#define SCREEN_BYTES_SIZE (SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)*2
+#else
+#define SCREEN_BYTES_SIZE (SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)
+#endif
 
 #define KEY_NSPIRE_ESC SDLK_ESCAPE
 #define KEY_NSPIRE_UP SDLK_UP

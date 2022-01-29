@@ -279,7 +279,7 @@ void drawStringCenter(void *buffer,char *str,int color,int y)
 {
   int i,length,x;
   length=strlen(str);
-  x=(320-length*CHAR_WIDTH-length)/2;
+  x=(SCREEN_GAME_WIDTH-length*CHAR_WIDTH-length)/2;
   for(i=0;i<length;i++)
   {
     drawChar(buffer,str[i],color,x+i*CHAR_WIDTH+i,y);
@@ -308,16 +308,16 @@ void drawCursor(void *buffer)
   #endif
   for(i=0;i<=19;i++)
   {
-    bufSetPixel(buffer,i+149,118,color);
-    bufSetPixel(buffer,i+149,119,color);
-    bufSetPixel(buffer,158,i+109,color);
-    bufSetPixel(buffer,159,i+109,color);
+    bufSetPixel(buffer,i+(SCREEN_GAME_WIDTH)/2-11,(SCREEN_GAME_HEIGHT)/2-2,color);
+    bufSetPixel(buffer,i+(SCREEN_GAME_WIDTH)/2-11,(SCREEN_GAME_HEIGHT)/2-1,color);
+    bufSetPixel(buffer,(SCREEN_GAME_WIDTH)/2-2,i+(SCREEN_GAME_HEIGHT)/2-11,color);
+    bufSetPixel(buffer,(SCREEN_GAME_WIDTH)/2-1,i+(SCREEN_GAME_HEIGHT)/2-11,color);
   }
 }
 
 void drawCubeIndicator(void *buffer,int color)
 {
-  drawTriangle(buffer,color,309,0,319,0,319,9);
+  drawTriangle(buffer,color,SCREEN_GAME_WIDTH-19,0,SCREEN_GAME_WIDTH-1,0,SCREEN_GAME_WIDTH-1,9);
 }
 
 void drawProgressBar(void *buffer,int percent)
@@ -332,7 +332,7 @@ void drawProgressBar(void *buffer,int percent)
   
   for(i=230;i<239;i++)
   {
-    bufHorizLine(buffer,0,i,319,0);
+    bufHorizLine(buffer,0,i,SCREEN_GAME_WIDTH-1,0);
   }
   for(i=231;i<238;i++)
   {
@@ -489,12 +489,12 @@ void drawTriangle(void *buffer,int color,int x1,int y1,int x2,int y2,int x3,int 
     for(i=start;i<=y2-y1;i++)
     {
 		tmp = (y2-y1);
-		if (tmp > 320) tmp = 320;
+		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
 		else if (tmp < 1) tmp = 1;
 		calc[0] = x1+(x2-x1)*i/tmp;
 		calc[1] = y1+i;
 		tmp = (y3-y1);
-		if (tmp > 320) tmp = 320;
+		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
 		else if (tmp < 1) tmp = 1;
 		calc[2] = x1+(x3-x1)*i/tmp;
 		bufHorizLine(buffer,calc[0],calc[1],calc[2],color);
@@ -508,12 +508,12 @@ void drawTriangle(void *buffer,int color,int x1,int y1,int x2,int y2,int x3,int 
     for(i=start;i<=y3-y2;i++)
     {
 		tmp = (y3-y2);
-		if (tmp > 320) tmp = 320;
+		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
 		else if (tmp < 1) tmp = 1;
 		calc[0] = x2+(x3-x2)*i/tmp;
 		calc[1] = y2+i;
 		tmp = (y3-y1);
-		if (tmp > 320) tmp = 320;
+		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
 		else if (tmp < 1) tmp = 1;
 		calc[2] = x1+(x3-x1)*(y2-y1+i)/tmp;
 		
