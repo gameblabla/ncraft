@@ -34,7 +34,7 @@ float angleCorrect(float angle)
   return angle;
 }
 
-float cos(float angle)
+float cos_game(float angle)
 {
   angle=angleCorrect(angle);
   int ipart=(int)angle;
@@ -44,7 +44,7 @@ float cos(float angle)
   return (t2-t1)*angle+t1;
 }
 
-float sin(float angle)
+float sin_game(float angle)
 {
   angle=angleCorrect(angle);
   int ipart=(int)angle;
@@ -54,7 +54,7 @@ float sin(float angle)
   return (t2-t1)*angle+t1;
 }
 
-float floor(float n)
+float floor_game(float n)
 {
   int a=0;
   a=(int)n;
@@ -70,15 +70,6 @@ float sign(float n)
     return -1.0;
 }
 
-int random_game(int min, int max)
-{
-  return rand()%(max-min) +min;
-}
-
-void startrandom_game()
-{
-	srand(time(NULL));
-}
 
 int ceiling(int n,int max)
 {

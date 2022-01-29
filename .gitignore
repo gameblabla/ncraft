@@ -3,3 +3,11 @@
 *.o
 *.O
 *.tns
+*.cue
+*.bin
+*.BIN
+*.CUE
+*.a
+*.source
+*.map
+lbas.h

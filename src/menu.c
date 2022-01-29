@@ -34,7 +34,7 @@ void initWorld(uint8_t *world)
       world[i+CUBE_WORLD_X*CUBE_WORLD_Y*j]=(rnd<5) ? 7 : 2;
     }
     //terrain
-    height=floor(sin(i%CUBE_WORLD_X*30)*0.49+cos(i/CUBE_WORLD_Y*30)*0.49+sin(i%CUBE_WORLD_X*10+80)*0.49+cos(i/CUBE_WORLD_Y*10+65)*0.49+3);
+    height=floor_game(sin_game(i%CUBE_WORLD_X*30)*0.49f+cos_game(i/CUBE_WORLD_Y*30)*0.49f+sin_game(i%CUBE_WORLD_X*10+80)*0.49f+cos_game(i/CUBE_WORLD_Y*10+65)*0.49f+3);
     for(j=20;j<=19+height-1;j++)
     {
       world[i+CUBE_WORLD_X*CUBE_WORLD_Y*j]=3;
@@ -47,7 +47,6 @@ void initWorld(uint8_t *world)
 void mainMenu(void *buffer,char *exit,uint8_t *world,pos *playerPos,float *angleX,float *angleZ,char *savePath)
 {
   char menu=1;
-  char firstDisplay=0;
   int cursor=0;
   int test=1;
   #ifdef _16BPP
@@ -69,8 +68,7 @@ void mainMenu(void *buffer,char *exit,uint8_t *world,pos *playerPos,float *angle
     {
       idle();
     }*/
-    
-    firstDisplay=1;
+   
     
     if(isKeyPressed(KEY_NSPIRE_UP))
     {
@@ -123,8 +121,15 @@ void menuNewWorld(char *menu,uint8_t *world,pos *playerPos,float *angleX,float *
 int menuLoadWorld(void *buffer,char *menu,uint8_t *world,pos *playerPos,float *angleX,float *angleZ,char *savePath)
 {
   int test=0;
-  test=loadWorld(buffer,savePath,world,playerPos,angleX,angleZ);
-  *menu=0;
+  ((void)buffer);
+  ((void)menu);
+  ((void)world);
+  ((void)playerPos);
+  ((void)angleX);
+  ((void)angleZ);
+  ((void)savePath);
+  /*test=loadWorld(buffer,savePath,world,playerPos,angleX,angleZ);
+  *menu=0;*/
   return test;
 }
 

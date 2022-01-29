@@ -5,10 +5,10 @@
 #include "draw.h"
 
 //Returns the first integer in a string
-int scanInt(char *str);
+//int scanInt(char *str);
 
 //Puts one line of the file in text
-void* readLine(FILE *filein, char *text);
+//void* readLine(FILE *filein, char *text);
 
 //File browser (for another release ?)
 //void listFiles(char **files,int *nbFiles);

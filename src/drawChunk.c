@@ -1,3 +1,4 @@
+#include <string.h>
 #include "drawChunk.h"
 
 
@@ -141,9 +142,9 @@ void computeCubeWorldChunk(uint8_t *chunk,float *cubePos,uint8_t *cubeList,int *
   int i=0,j=0,k=0; //iterators
   int index=0,n=0,displayed=0; //utils
   
-  playerPos.x-=floor(playerPos.x/2.0)*2.0-(float)CUBE_CHUNK_X;
-  playerPos.y-=floor(playerPos.y/2.0)*2.0-(float)CUBE_CHUNK_Y;
-  playerPos.z-=floor(playerPos.z/2.0)*2.0-(float)CUBE_CHUNK_Z-2.0;
+  playerPos.x-=floor_game(playerPos.x/2.0f)*2.0f-(float)CUBE_CHUNK_X;
+  playerPos.y-=floor_game(playerPos.y/2.0f)*2.0f-(float)CUBE_CHUNK_Y;
+  playerPos.z-=floor_game(playerPos.z/2.0f)*2.0f-(float)CUBE_CHUNK_Z-2.0f;
   
   //loop to see all cubes
   for(i=0;i<CUBE_CHUNK_Z;i++)
@@ -158,9 +159,9 @@ void computeCubeWorldChunk(uint8_t *chunk,float *cubePos,uint8_t *cubeList,int *
         
         if(chunk[index]!=0 && displayed)
         {
-          cubePos[n*3]=(float)j*2.0+1.0;
-          cubePos[n*3+1]=(float)k*2.0+1.0;
-          cubePos[n*3+2]=(float)i*2.0+1.0;
+          cubePos[n*3]=(float)j*2.0f+1.0f;
+          cubePos[n*3+1]=(float)k*2.0f+1.0f;
+          cubePos[n*3+2]=(float)i*2.0f+1.0f;
           cubeList[n]=chunk[index];
           n=n+1;
         }
@@ -184,9 +185,6 @@ void renderFullWorld(void *buffer,uint8_t *world,float *cubePos,uint8_t *cubeLis
   int index=0,n=0,displayed=0; //utils
   int nbChunksX=CUBE_WORLD_X/CUBE_CHUNK_X+1;
   int nbChunksY=CUBE_WORLD_Y/CUBE_CHUNK_Y+1;
-  
-  void *buffer2=malloc(SCREEN_BYTES_SIZE);
-  memcpy(buffer2,SCREEN_BASE_ADDRESS,SCREEN_BYTES_SIZE);
   
   //associate a number and a distance to each chunk
   int chunkIndexes[nbChunksX*nbChunksY];
@@ -223,9 +221,9 @@ void renderFullWorld(void *buffer,uint8_t *world,float *cubePos,uint8_t *cubeLis
           
           if(world[index]!=0 && displayed)
           {
-            cubePos[n*3]=(float)j*2.0+1.0;
-            cubePos[n*3+1]=(float)k*2.0+1.0;
-            cubePos[n*3+2]=(float)i*2.0+1.0;
+            cubePos[n*3]=(float)j*2.0f+1.0f;
+            cubePos[n*3+1]=(float)k*2.0f+1.0f;
+            cubePos[n*3+2]=(float)i*2.0f+1.0f;
             cubeList[n]=(index%2==0)? world[index] : 256-world[index];
             n=n+1;
           }
@@ -240,12 +238,11 @@ void renderFullWorld(void *buffer,uint8_t *world,float *cubePos,uint8_t *cubeLis
     drawCubeList(buffer,cubePos,cubeList,n,xRotation,zRotation);
     
     //progress bar
-    drawProgressBar(buffer2,c*100/(nbChunksX*nbChunksY-2));
+    drawProgressBar(SCREEN_BASE_ADDRESS,c*100/(nbChunksX*nbChunksY-2));
     
-    bufDisplay(buffer2);
+    bufDisplay(SCREEN_BASE_ADDRESS);
   }
-  bufDisplay(buffer);
-  free(buffer2);
+  bufDisplay(SCREEN_BASE_ADDRESS);
 }
 
 

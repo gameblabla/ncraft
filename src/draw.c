@@ -346,8 +346,8 @@ void drawCube(void *buffer,float *vertices,int *pos,int *faces,int *colors)
   {
     int i=0,j=0;
     int a=0,b=0,c=0,d=0;
-    float e=0.0,f=0.0,g=0.0;
-    float dist[6]={0.0};
+    float e=0.0f,f=0.0f,g=0.0f;
+    float dist[6]={0.0f};
     
     int facesImg[6*4]={0};
     int colorsImg[6]={0};
@@ -357,9 +357,9 @@ void drawCube(void *buffer,float *vertices,int *pos,int *faces,int *colors)
     
     for(i=0;i<6;i++)
     {
-      e=vertices[faces[i*4]*3-3]/2.0+vertices[faces[i*4+2]*3-3]/2.0;
-      f=vertices[faces[i*4]*3-2]/2.0+vertices[faces[i*4+2]*3-2]/2.0;
-      g=vertices[faces[i*4]*3-1]/2.0+vertices[faces[i*4+2]*3-1]/2.0;
+      e=vertices[faces[i*4]*3-3]/2.0f+vertices[faces[i*4+2]*3-3]/2.0f;
+      f=vertices[faces[i*4]*3-2]/2.0f+vertices[faces[i*4+2]*3-2]/2.0f;
+      g=vertices[faces[i*4]*3-1]/2.0f+vertices[faces[i*4+2]*3-1]/2.0f;
       dist[i]=e*e+f*f+g*g;
     }
     

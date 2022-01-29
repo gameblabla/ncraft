@@ -6,14 +6,14 @@
 void computeVertices(float *vertices,int *pos,int size)
 {
   int i=0;
-  float temp=0.0;
+  float temp=0.0f;
   for(i=0;i<size;i++)
   {
-    if(vertices[i*3+1]>0)
+    if(vertices[i*3+1]>0.0f)
     {
-      temp=OFFSET*vertices[i*3]/vertices[i*3+1]*FOV+(SCREEN_GAME_WIDTH/2);
+      temp=(float)OFFSET*vertices[i*3]/vertices[i*3+1]*FOV+(SCREEN_GAME_WIDTH/2);
       pos[i*2]=(int)temp;
-      temp=-OFFSET*vertices[i*3+2]/vertices[i*3+1]*FOV+(SCREEN_GAME_HEIGHT/2);
+      temp=(float)-OFFSET*vertices[i*3+2]/vertices[i*3+1]*FOV+(SCREEN_GAME_HEIGHT/2);
       pos[i*2+1]=(int)temp;
     }
     else
@@ -49,9 +49,9 @@ void scale(float *vertices,int size,float x,float y,float z)
 
 void rotateX(float *vertices,int size,float angle)
 {
-  float c=cos(angle),s=sin(angle);
-  float matrix[9]={1,0,0,0,c,-1*s,0,s,c};
-  float vector[3]={0,0,0};
+  float c=cos_game(angle),s=sin_game(angle);
+  float matrix[9]={1.0f,0.0f,0.0f,0.0f,c,-1.0f*s,0.0f,s,c};
+  float vector[3]={0.0f,0.0f,0.0f};
   int i=0;
   for(i=0;i<size;i++)
   {
@@ -67,9 +67,9 @@ void rotateX(float *vertices,int size,float angle)
 
 void rotateY(float *vertices,int size,float angle)
 {
-  float c=cos(angle),s=sin(angle);
-  float matrix[9]={c,0,s,0,1,0,-1*s,0,c};
-  float vector[3]={0,0,0};
+  float c=cos_game(angle),s=sin_game(angle);
+  float matrix[9]={c,0.0f,s,0.0f,1.0f,0.0f,-1.0f*s,0.0f,c};
+  float vector[3]={0.0f,0.0f,0.0f};
   int i=0;
   for(i=0;i<size;i++)
   {
@@ -85,7 +85,7 @@ void rotateY(float *vertices,int size,float angle)
 
 void rotateZ(float *vertices,int size,float angle)
 {
-  float c=cos(angle),s=sin(angle);
+  float c=cos_game(angle),s=sin_game(angle);
   float matrix[9]={c,-1*s,0,s,c,0,0,0,1};
   float vector[3]={0,0,0};
   int i=0;

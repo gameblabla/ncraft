@@ -33,8 +33,8 @@ const uint16_t cubeListColor[128]={
 
 int shadeColor(int color,int shade)
 {
-  int newColor=0;
   #ifdef _16BPP
+  int newColor=0;
     newColor=ceiling(color/2048+shade*2,31)*2048+ceiling(color/32%64 +shade*4,63)*32+ceiling(color%32+shade*2,31);
     return (newColor>0) ? newColor : 0;
   #else

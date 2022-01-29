@@ -9,14 +9,14 @@
 int getCubeIndex(float x,float y,float z)
 {
   int index=0,temp=0;
-  x+=CUBE_CHUNK_X;
-  y+=CUBE_CHUNK_Y;
-  z+=CUBE_CHUNK_Z-2.0;
-  if(x>0 && y>0 && z>0 && x/2.0<CUBE_CHUNK_X && y/2.0<CUBE_CHUNK_Y && z/2.0<CUBE_CHUNK_Z)
+  x+=(float)CUBE_CHUNK_X;
+  y+=(float)CUBE_CHUNK_Y;
+  z+=(float)CUBE_CHUNK_Z-2.0f;
+  if(x>0.0f && y>0.0f && z>0.0f && x/2.0f<(float)CUBE_CHUNK_X && y/2.0f<(float)CUBE_CHUNK_Y && z/2.0f<(float)CUBE_CHUNK_Z)
   {
-    x=x/2.0;
-    y=y/2.0;
-    z=z/2.0;
+    x=x/2.0f;
+    y=y/2.0f;
+    z=z/2.0f;
     temp=(int)z;
     index=temp*CUBE_CHUNK_X*CUBE_CHUNK_Y;
     temp=(int)x;
@@ -47,13 +47,13 @@ int rayCast(uint8_t *chunk,float angleX,float angleZ,pos playerPos,int *lastCube
   float xPos,yPos,zPos;
   int i,collision,chunkIndex,worldIndex;
   
-  xcoef=cos(angleZ-90.0)*cos(angleX);
-  ycoef=sin(angleZ+90.0)*cos(angleX);
-  zcoef=-sin(angleX);
+  xcoef=cos_game(angleZ-90.0f)*cos_game(angleX);
+  ycoef=sin_game(angleZ+90.0f)*cos_game(angleX);
+  zcoef=-sin_game(angleX);
   
-  xPos=playerPos.x-floor(playerPos.x/2)*2.0;
-  yPos=playerPos.y-floor(playerPos.y/2)*2.0;
-  zPos=playerPos.z-floor(playerPos.z/2)*2.0;
+  xPos=playerPos.x-floor_game(playerPos.x/2)*2.0f;
+  yPos=playerPos.y-floor_game(playerPos.y/2)*2.0f;
+  zPos=playerPos.z-floor_game(playerPos.z/2)*2.0f;
   
   chunkIndex=-1;
   worldIndex=-1;

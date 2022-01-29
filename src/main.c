@@ -5,8 +5,10 @@
 #include "actions.h"
 #include "menu.h"
 
+uint8_t world[CUBE_WORLD_X*CUBE_WORLD_Y*CUBE_WORLD_Z];
 
 //LOADS THE CHUNK TO DISPLAY
+
 void loadChunk(uint8_t *world,uint8_t *chunk,pos playerPos)
 {  
   int x,y,z,i,j,k;
@@ -14,9 +16,9 @@ void loadChunk(uint8_t *world,uint8_t *chunk,pos playerPos)
   int xmax,ymax,zmax;
   int index=0;
   
-  x=(int)floor(playerPos.x/2.0);
-  y=(int)floor(playerPos.y/2.0);
-  z=(int)floor(playerPos.z/2.0)-1;
+  x=(int)floor_game(playerPos.x/2.0f);
+  y=(int)floor_game(playerPos.y/2.0f);
+  z=(int)floor_game(playerPos.z/2.0f)-1;
   
   xmin=(x<CUBE_CHUNK_X/2) ? 0 : x-CUBE_CHUNK_X/2;
   ymin=(y<CUBE_CHUNK_Y/2) ? 0 : y-CUBE_CHUNK_Y/2;
@@ -32,7 +34,7 @@ void loadChunk(uint8_t *world,uint8_t *chunk,pos playerPos)
   {
     for(j=xmin-x+CUBE_CHUNK_X/2;j<CUBE_CHUNK_X/2+xmax-x;j++)
     {
-      for(k=ymin-y+CUBE_CHUNK_Y/2;k<CUBE_CHUNK_Y/2+ymax-y;k++) /*TO DO:use memcpy*/
+      for(k=ymin-y+CUBE_CHUNK_Y/2;k<CUBE_CHUNK_Y/2+ymax-y;k++)
       {
         index=(i-CUBE_CHUNK_Z/2+z)*CUBE_WORLD_Y*CUBE_WORLD_X+(j-CUBE_CHUNK_X/2+x)*CUBE_WORLD_Y+k-CUBE_CHUNK_Y/2+y;
         chunk[i*CUBE_CHUNK_Y*CUBE_CHUNK_X+j*CUBE_CHUNK_Y+k]=(index%2==0) ? (world[index]) : (256-world[index]);
@@ -47,8 +49,8 @@ void loadChunk(uint8_t *world,uint8_t *chunk,pos playerPos)
 void goToPos(uint8_t *chunk,float xPos,float yPos,pos *playerPos)
 {
   float newXPos,newYPos;
-  newXPos=xPos+playerPos->x-floor(playerPos->x/2)*2;
-  newYPos=yPos+playerPos->y-floor(playerPos->y/2)*2;
+  newXPos=xPos+playerPos->x-floor_game(playerPos->x/2)*2;
+  newYPos=yPos+playerPos->y-floor_game(playerPos->y/2)*2;
   //make sure that the player does not go beyond the world's edge
   if(playerPos->x+xPos>0 && playerPos->x+xPos<2*CUBE_WORLD_X && playerPos->y+yPos>0 && playerPos->y+yPos<2*CUBE_WORLD_Y-1)
   {
@@ -72,14 +74,13 @@ void goToPos(uint8_t *chunk,float xPos,float yPos,pos *playerPos)
 
 void correctPosition(uint8_t *chunk,pos *playerPos)
 {
-  if(getCube(chunk,0,0,0)!=0 && ((playerPos->z+0.5)-floor((playerPos->z+0.5)/2)*2)>0.2)
-   {playerPos->z=2+floor(playerPos->z/2)*2;}
+  if(getCube(chunk,0,0,0)!=0 && ((playerPos->z+0.5f)-floor_game((playerPos->z+0.5f)/2)*2)>0.2f)
+   {playerPos->z=2+floor_game(playerPos->z/2)*2;}
 }
 
 
-
-
 ////// MAIN GAME FUNCTION //////
+
 
 void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,float *Zangle)
 {
@@ -93,8 +94,8 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
   float angleZ=*Zangle;
   
   //bools
-  char exit=0,firstDisplay=0;
-  char falling=1,repeatTab=0,repeatCtrl=0,fullRender=0;
+  char exit=0;
+  char repeatTab=0,repeatCtrl=0,fullRender=0;
   
   //utils
   uint8_t *chunk=malloc(CUBE_CHUNK_X*CUBE_CHUNK_Y*CUBE_CHUNK_Z*sizeof(uint8_t)); //cube world chunk (kind of a 3D array)
@@ -112,29 +113,28 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
   while(!exit)
   {
     //wait for key pressed
-    /*while(!any_key_pressed() && firstDisplay==1 && falling==0)
-    {
-      idle();
-      repeatTab=0;
-      repeatCtrl=0;
-    }*/
+    //while(!any_key_pressed() && firstDisplay==1 && falling==0)
+    //{
+    //  idle();
+    //  repeatTab=0;
+   //   repeatCtrl=0;
+   // }
 
     //timers update
     //time=*(volatile uint16_t*)timerAddr;
-    firstDisplay=1;
     
     //key detection
     if(isKeyPressed(KEY_NSPIRE_ESC))
       exit=1;
       
-    if(isKeyPressed(KEY_NSPIRE_UP) && angleX>-80.0)
-      angleX-=5.0;
-    if(isKeyPressed(KEY_NSPIRE_DOWN) && angleX<80.0)
-      angleX+=5.0;
+    if(isKeyPressed(KEY_NSPIRE_UP) && angleX>-80.0f)
+      angleX-=5.0f;
+    if(isKeyPressed(KEY_NSPIRE_DOWN) && angleX<80.0f)
+      angleX+=5.0f;
     if(isKeyPressed(KEY_NSPIRE_RIGHT))
-      angleZ+=5.0;
+      angleZ+=5.0f;
     if(isKeyPressed(KEY_NSPIRE_LEFT))
-      angleZ-=5.0;
+      angleZ-=5.0f;
       
     if(isKeyPressed(KEY_NSPIRE_TAB) && repeatTab==0)
     {
@@ -156,13 +156,13 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
     
       
     if(isKeyPressed(KEY_NSPIRE_8)) //forward
-      goToPos(chunk,cos(angleZ-90.0)/1.5,sin(angleZ+90.0)/1.5,&playerPos);
+      goToPos(chunk,cos_game(angleZ-90.0f)/1.5,sin_game(angleZ+90.0f)/1.5f,&playerPos);
     if(isKeyPressed(KEY_NSPIRE_2) || isKeyPressed(KEY_NSPIRE_5)) //backward
-      goToPos(chunk,-cos(angleZ-90.0)/2,-sin(angleZ+90.0)/2,&playerPos);
+      goToPos(chunk,-cos_game(angleZ-90.0f)/2,-sin_game(angleZ+90.0f)/2,&playerPos);
     if(isKeyPressed(KEY_NSPIRE_6)) //right straff
-      goToPos(chunk,cos(angleZ)/1.5,sin(angleZ+180.0)/1.5,&playerPos);
+      goToPos(chunk,cos_game(angleZ)/1.5f,sin_game(angleZ+180.0f)/1.5f,&playerPos);
     if(isKeyPressed(KEY_NSPIRE_4)) //left straff
-      goToPos(chunk,cos(angleZ-180.0)/1.5,sin(angleZ)/1.5,&playerPos);
+      goToPos(chunk,cos_game(angleZ-180.0f)/1.5,sin_game(angleZ)/1.5f,&playerPos);
       
     if(isKeyPressed(KEY_NSPIRE_PLUS))
       selectedCube=selectedCube%10+1;
@@ -172,12 +172,7 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
     //gravity
     if(getCube(chunk,0,0,0)==0)
     {
-      playerPos.z-=0.5;
-      falling=1;
-    }
-    else
-    {
-      falling=0;
+      playerPos.z-=0.5f;
     }
     correctPosition(chunk,&playerPos);
     
@@ -221,46 +216,35 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
 
 extern void Init_display();
 
-int main(int argc,char *argv[])
+int main()
 {
-  if(argc<1)
-    return 0;  
-    
+	char savePath[16]="";
 	Init_display();
-  
-  //initialization
-  startrandom_game();
-  
-  //screen buffer
-  void *buffer=malloc(SCREEN_BYTES_SIZE);
-  //The cube world. Huge array
-  uint8_t *world=malloc(CUBE_WORLD_X*CUBE_WORLD_Y*CUBE_WORLD_Z*sizeof(uint8_t));
-  //boolean
-  char exit=0;
-  //path of the save file
-  char savePath[200]="";
-  snprintf(savePath, sizeof(savePath), "nCraft.save");
-  
-  
-  //position & camera rotation
-  pos playerPos;
-  playerPos.x=101.0;
-  playerPos.y=101.0;
-  playerPos.z=50.1;
-  float angleX=5.0,angleZ=10.0;
-  
-  
-  //menu
-  mainMenu(buffer,&exit,world,&playerPos,&angleX,&angleZ,savePath);
+	
+	//initialization
+	startrandom_game();
 
-  //THE GAME
-  if(!exit)
-  {
-    play_nCraft(buffer,world,&playerPos,&angleX,&angleZ);
-    saveWorld(buffer,savePath,world,playerPos,angleX,angleZ);
-  }
+	//The cube world. Huge array
+	char exit=0;
+	//path of the save file
+	//position & camera rotation
+	pos playerPos;
+	playerPos.x=101.0f;
+	playerPos.y=101.0f;
+	playerPos.z=50.1f;
+	float angleX=5.0f,angleZ=10.0f;
+  
+	//menu
+	mainMenu(SCREEN_BASE_ADDRESS,&exit,world,&playerPos,&angleX,&angleZ,savePath);
 
-  free(world);
-  free(buffer);
-  return 0;
+	//THE GAME
+	if(!exit)
+	{
+		play_nCraft(SCREEN_BASE_ADDRESS,world,&playerPos,&angleX,&angleZ);
+		//saveWorld(SCREEN_BASE_ADDRESS,savePath,world,playerPos,angleX,angleZ);
+	}
+
+	//free(world);
+	//free(buffer);
+	return 0;
 }

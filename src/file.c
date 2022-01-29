@@ -40,6 +40,7 @@ void listFiles(char **files,int *nbFiles)
 }
 */
 
+/*
 char loadWorld(void *buffer,char *name,uint8_t *world,pos *playerPos,float *angleX,float *angleZ)
 {
   #if 0
@@ -169,5 +170,5 @@ void saveWorld(void *buffer,char *name,uint8_t *world,pos playerPos,float angleX
   }
   #endif
 }
-
+*/
 
