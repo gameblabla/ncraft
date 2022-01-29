@@ -81,7 +81,7 @@ void bufHorizLine(void *buffer,int x,int y,int x2, int color)
 		for(i=x;i<=x2;i++)
 		{
 			#ifdef _16BPP
-				*(volatile unsigned char*)(buffer+(i*2)+y*(SCREEN_GAME_WIDTH*2))=color;
+				*(volatile unsigned short*)(buffer+(i*2)+y*(SCREEN_GAME_WIDTH*2))=color;
 			#else
 				*(volatile unsigned char*)(buffer+i+y*SCREEN_GAME_WIDTH)=color;
 			#endif
