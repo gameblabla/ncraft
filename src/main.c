@@ -235,18 +235,17 @@ int main()
 	
 	//path of the save file
 	//position & camera rotation
-	initWorld(world);
-	
-	playerPos.x=101.0f;
-	playerPos.y=101.0f;
-	playerPos.z=50.1f;
-	
-  
 	//menu
 	#ifndef NOMENU
 	char savePath[16]="";
 	mainMenu(SCREEN_BASE_ADDRESS,&exit,world,&playerPos,&angleX,&angleZ,savePath);
+	#else
+	initWorld(world);
 	#endif
+	
+	playerPos.x=101.0f;
+	playerPos.y=101.0f;
+	playerPos.z=50.1f;
 	
 	//THE GAME
 	if(!exit)
