@@ -128,8 +128,10 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
     //time=*(volatile uint16_t*)timerAddr;
     
     //key detection
+    #ifndef PCFX
     if(isKeyPressed(KEY_NSPIRE_ESC))
       exit=1;
+    #endif
       
     if(isKeyPressed(KEY_NSPIRE_UP) && angleX>-80.0f)
       angleX-=5.0f;
