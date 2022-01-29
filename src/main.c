@@ -114,7 +114,7 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
   bufDisplay(buffer);
   
   //render loop
-  while(!exit)
+  for(;;)
   {
     //wait for key pressed
     //while(!any_key_pressed() && firstDisplay==1 && falling==0)
@@ -162,13 +162,13 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
     
       
     if(isKeyPressed(KEY_NSPIRE_8)) //forward
-      goToPos(chunk,cos_game(angleZ-90.0f)/1.5,sin_game(angleZ+90.0f)/1.5f,&playerPos);
+      goToPos(chunk,cos_game(angleZ-90.0f)/1.5f,sin_game(angleZ+90.0f)/1.5f,&playerPos);
     if(isKeyPressed(KEY_NSPIRE_2) || isKeyPressed(KEY_NSPIRE_5)) //backward
       goToPos(chunk,-cos_game(angleZ-90.0f)/2,-sin_game(angleZ+90.0f)/2,&playerPos);
     if(isKeyPressed(KEY_NSPIRE_6)) //right straff
       goToPos(chunk,cos_game(angleZ)/1.5f,sin_game(angleZ+180.0f)/1.5f,&playerPos);
     if(isKeyPressed(KEY_NSPIRE_4)) //left straff
-      goToPos(chunk,cos_game(angleZ-180.0f)/1.5,sin_game(angleZ)/1.5f,&playerPos);
+      goToPos(chunk,cos_game(angleZ-180.0f)/1.5f,sin_game(angleZ)/1.5f,&playerPos);
       
     if(isKeyPressed(KEY_NSPIRE_PLUS))
       selectedCube=selectedCube%10+1;
@@ -250,7 +250,7 @@ int main()
 	playerPos.z=50.1f;
 	
 	//THE GAME
-	if(!exit)
+	for(;;)
 	{
 		play_nCraft(SCREEN_BASE_ADDRESS,world,&playerPos,&angleX,&angleZ);
 		//saveWorld(SCREEN_BASE_ADDRESS,savePath,world,playerPos,angleX,angleZ);
