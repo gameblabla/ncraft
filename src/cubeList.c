@@ -1,5 +1,6 @@
 #include "cubeList.h"
 
+//PC-FX hook up
 const uint8_t cubeListGray[128]={
 0, //air (0)
 1, //bedrock (1)

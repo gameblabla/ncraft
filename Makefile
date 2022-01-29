@@ -1,7 +1,7 @@
 PRGNAME     = ncraft.elf
 CC			= gcc
 
-SRCDIR		= ./src
+SRCDIR		= ./src ./src/pc
 VPATH		= $(SRCDIR)
 SRC_C		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.c))
 SRC_S		= $(foreach dir, $(SRCDIR), $(wildcard $(dir)/*.s))
@@ -9,8 +9,8 @@ OBJ_C		= $(notdir $(patsubst %.c, %.o, $(SRC_C)))
 OBJ_S		= $(notdir $(patsubst %.s, %.o, $(SRC_CP)))
 OBJS		= $(OBJ_C) $(OBJ_S)
 
-CFLAGS		= -O0 -g3 -D__USE_C_FIXED__
-CFLAGS		+= -Isrc
+CFLAGS		= -O0 -g3
+CFLAGS		+= -Isrc -Isrc/pc
 
 LDFLAGS     = -lc -lgcc -lm -lSDL -lasound
 

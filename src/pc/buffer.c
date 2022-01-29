@@ -51,7 +51,7 @@ void bufClear(void *buffer)
 void bufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
 {
 	#ifdef _16BPP
-		*((unsigned char*)buffer + x + y * 640) = color;
+		*((unsigned short*)buffer + x + y * 320) = color;
 	#else
 		*((unsigned char*)buffer + x + y * 320) = color;
 	#endif
