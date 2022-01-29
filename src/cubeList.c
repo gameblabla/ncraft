@@ -1,7 +1,7 @@
 #include "cubeList.h"
 
 //PC-FX hook up
-const uint8_t cubeListGray[128]={
+const uint8_t cubeListGray[11]={
 0, //air (0)
 1, //bedrock (1)
 5, //stone (2)
@@ -15,7 +15,7 @@ const uint8_t cubeListGray[128]={
 5 //omniblue (10)
 };
 
-const uint16_t cubeListColor[128]={
+const uint16_t cubeListColor[11]={
 0b0000000000000000, //air (0)
 0b0001000010000010, //bedrock (1)
 0b0111001110001110, //stone (2)
