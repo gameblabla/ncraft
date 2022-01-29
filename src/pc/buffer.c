@@ -43,19 +43,6 @@ void bufDisplay(void *buffer)
 	start = SDL_GetTicks();
 }
 
-void bufClear(void *buffer)
-{
-    memset(buffer,0xFF,SCREEN_BYTES_SIZE);
-}
-
-void bufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
-{
-	#ifdef _16BPP
-		*((unsigned short*)buffer + x + y * SCREEN_GAME_WIDTH) = color;
-	#else
-		*((unsigned char*)buffer + x + y * SCREEN_GAME_WIDTH) = color;
-	#endif
-}
 
 void securedBufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
 {

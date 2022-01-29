@@ -6,9 +6,13 @@
 //display a buffer on the screen
 void bufDisplay(void *buffer);
 //Fill a buffer with a color
-void bufClear(void *buffer);
+#define bufClear(a) memset(a,0xFF,SCREEN_BYTES_SIZE);
 //(non-clipped) Set a pixel
-void bufSetPixel(void *buffer,unsigned int x, unsigned int y,int color);
+#ifdef _16BPP
+#define bufSetPixel(buffer,x,y,color) *((uint16_t*)buffer + x + y * SCREEN_GAME_WIDTH) = color;
+#else
+#define bufSetPixel(buffer,x,y,color) *((uint8_t*)buffer + x + y * SCREEN_GAME_WIDTH) = color;
+#endif
 //(clipped) Set a pixel
 void securedBufSetPixel(void *buffer,unsigned int x, unsigned int y,int color);
 //Clipped horizontal line

@@ -100,20 +100,6 @@ void bufDisplay(void *buffer)
 	eris_king_set_kram_write(0, 1);
 }
 
-void bufClear(void *buffer)
-{
-    memset(buffer,0,SCREEN_BYTES_SIZE);
-}
-
-void bufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
-{
-	#ifdef _16BPP
-		*((unsigned short*)buffer + x + y * SCREEN_GAME_WIDTH) = color;
-	#else
-		*((unsigned char*)buffer + x + y * SCREEN_GAME_WIDTH) = color;
-	#endif
-}
-
 void securedBufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
 {
 	if (x<SCREEN_GAME_WIDTH && y<SCREEN_GAME_HEIGHT)
