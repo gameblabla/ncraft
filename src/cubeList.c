@@ -3,6 +3,10 @@
 
 #ifdef _16BPP
 const uint16_t cubeListColor[11]={
+#ifdef PCFX
+0x88,0x2688,0x3f89,0x5998,0x7a88,0x94b3,0xa289,0xa888,
+0x9f22,0xda0a,
+#else
 0x0, //air (0)
 0x1082, //bedrock (1)
 0x738E, //stone (2)
@@ -14,6 +18,7 @@ const uint16_t cubeListColor[11]={
 0xEEE2, //gold (8)
 0x9C43, //iron (9)
 0x1091 //omniblue(10)
+#endif
 };
 #else
 //PC-FX hook up
@@ -56,7 +61,7 @@ int getCubeColor(uint8_t index)
 	#else
     if(index<128)
       return (int)cubeListGray[index];
-    else
+	else
       return shadeColor((int)cubeListGray[256-index],1);
 	#endif
 }

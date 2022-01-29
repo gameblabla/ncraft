@@ -5,8 +5,8 @@
 
 void computeVertices(float *vertices,int *pos,int size)
 {
-  int i=0;
-  float temp=0.0f;
+  int i;
+  float temp;
   for(i=0;i<size;i++)
   {
     if(vertices[i*3+1]>0.0f)
@@ -27,7 +27,7 @@ void computeVertices(float *vertices,int *pos,int size)
 
 void translate(float *vertices,int size,float x,float y,float z)
 {
-  int i=0;
+  int i;
   for(i=0;i<size;i++)
   {
     vertices[i*3]+=x;
@@ -38,7 +38,7 @@ void translate(float *vertices,int size,float x,float y,float z)
 
 void scale(float *vertices,int size,float x,float y,float z)
 {
-  int i=0;
+  int i;
   for(i=0;i<size;i++)
   {
     vertices[i*3]*=x;
@@ -51,8 +51,8 @@ void rotateX(float *vertices,int size,float angle)
 {
   float c=cos_game(angle),s=sin_game(angle);
   float matrix[9]={1.0f,0.0f,0.0f,0.0f,c,-1.0f*s,0.0f,s,c};
-  float vector[3]={0.0f,0.0f,0.0f};
-  int i=0;
+  float vector[3];
+  int i;
   for(i=0;i<size;i++)
   {
     vector[0]=vertices[i*3];
@@ -69,8 +69,8 @@ void rotateY(float *vertices,int size,float angle)
 {
   float c=cos_game(angle),s=sin_game(angle);
   float matrix[9]={c,0.0f,s,0.0f,1.0f,0.0f,-1.0f*s,0.0f,c};
-  float vector[3]={0.0f,0.0f,0.0f};
-  int i=0;
+  float vector[3];
+  int i;
   for(i=0;i<size;i++)
   {
     vector[0]=vertices[i*3];
@@ -87,8 +87,8 @@ void rotateZ(float *vertices,int size,float angle)
 {
   float c=cos_game(angle),s=sin_game(angle);
   float matrix[9]={c,-1*s,0,s,c,0,0,0,1};
-  float vector[3]={0,0,0};
-  int i=0;
+  float vector[3];
+  int i;
   for(i=0;i<size;i++)
   {
     vector[0]=vertices[i*3];

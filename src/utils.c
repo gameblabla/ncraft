@@ -51,17 +51,17 @@ float sin_game(float angle)
 {
 	int ipart;
 	float t1, t2;
-  angle=angleCorrect(angle);
+	angle=angleCorrect(angle);
 	ipart=(int)angle;
 	t1=sintbl[ipart%360];
 	t2=sintbl[(ipart+1)%360];
-  angle=angle-(float)ipart;
-  return (t2-t1)*angle+t1;
+	angle=angle-(float)ipart;
+	return (t2-t1)*angle+t1;
 }
 
-float floor_game(float n)
+inline float floor_game(float n)
 {
-  int a=0;
+  int a;
   a=(int)n;
   n=(float)a;
   return n;

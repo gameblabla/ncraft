@@ -100,15 +100,15 @@ int isCubeVisibleInChunk(uint8_t *chunk,int cubeX,int cubeY,int cubeZ,int index)
   int visible=0;
   if(cubeZ>=CUBE_CHUNK_Z/2)
     visible+=(chunk[index-CUBE_CHUNK_X*CUBE_CHUNK_X]==0) ? 1 : 0;
-  if(cubeZ<=CUBE_CHUNK_Z/2)
+  else if(cubeZ<=CUBE_CHUNK_Z/2)
     visible+=(chunk[index+CUBE_CHUNK_X*CUBE_CHUNK_Y]==0) ? 1 : 0;
   if(cubeX>=CUBE_CHUNK_X/2)
     visible+=(chunk[index-CUBE_CHUNK_Y]==0) ? 1 : 0;
-  if(cubeX<=CUBE_CHUNK_X/2)
+  else if(cubeX<=CUBE_CHUNK_X/2)
     visible+=(chunk[index+CUBE_CHUNK_Y]==0) ? 1 : 0;
   if(cubeY>=CUBE_CHUNK_Y/2)
     visible+=(chunk[index-1]==0) ? 1 : 0;
-  if(cubeY<=CUBE_CHUNK_Y/2)
+  else if(cubeY<=CUBE_CHUNK_Y/2)
     visible+=(chunk[index+1]==0) ? 1 : 0;
   return visible;
 }
@@ -122,15 +122,15 @@ int isCubeVisibleInWorld(uint8_t *world,int cubeX,int cubeY,int cubeZ,int index,
   
   if(cubeZ>=playerPos.z)
     visible+=(world[index-CUBE_WORLD_X*CUBE_WORLD_Y]==0) ? 1 : 0;
-  if(cubeZ<=playerPos.z)
+  else if(cubeZ<=playerPos.z)
     visible+=(world[index+CUBE_WORLD_X*CUBE_WORLD_Y]==0) ? 1 : 0;
   if(cubeX>=playerPos.x)
     visible+=(world[index-CUBE_WORLD_Y]==0) ? 1 : 0;
-  if(cubeX<=playerPos.x)
+  else if(cubeX<=playerPos.x)
     visible+=(world[index+CUBE_WORLD_Y]==0) ? 1 : 0;
   if(cubeY>=playerPos.y)
     visible+=(world[index-1]==0) ? 1 : 0;
-  if(cubeY<=playerPos.y)
+  else if(cubeY<=playerPos.y)
     visible+=(world[index+1]==0) ? 1 : 0;
   return visible;
 }

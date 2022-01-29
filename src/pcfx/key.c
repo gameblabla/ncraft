@@ -1,9 +1,10 @@
+#include <stdint.h>
+#include <eris/types.h>
+extern u32 paddata;
 
 int isKeyPressed(int key)
 {
-	((void)key);
-	/*Uint8 *keystate = SDL_GetKeyState(NULL);
-	if (keystate[key]) return 1;*/
+	if(paddata & (1 << key)) return 1;
 	return 0;
 }
 

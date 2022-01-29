@@ -54,7 +54,7 @@ void securedBufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
 
 void bufHorizLine(void *buffer,int x,int y,int x2, int color)
 {
-	int width=0,i=0;
+	int width=0,i;
 	if (x>x2)
 	{
 		invertVars(&x,&x2);

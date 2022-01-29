@@ -62,6 +62,7 @@ float angleCorrect(float angle);
 
 //math utils
 float floor_game(float n);
+
 float sign(float n);
 int random_game(int min, int max);
 void startrandom_game();
