@@ -1,5 +1,4 @@
 #include "buffer.h"
-#include "lbas.h"
 #include <eris/v810.h>
 #include <eris/king.h>
 #include <eris/tetsu.h>

@@ -1,5 +1,21 @@
 #include "cubeList.h"
 
+
+#ifdef _16BPP
+const uint16_t cubeListColor[11]={
+0x0, //air (0)
+0x1082, //bedrock (1)
+0x738E, //stone (2)
+0x5A02, //dirt (3)
+0x15C2, //grass (4)
+0xEF36, //sand (5)
+0xC77D, //diamond (6)
+0x2104, //coal (7)
+0xEEE2, //gold (8)
+0x9C43, //iron (9)
+0x1091 //omniblue(10)
+};
+#else
 //PC-FX hook up
 const uint8_t cubeListGray[11]={
 0, //air (0)
@@ -14,21 +30,7 @@ const uint8_t cubeListGray[11]={
 8, //iron (9)
 5 //omniblue (10)
 };
-
-const uint16_t cubeListColor[11]={
-0b0000000000000000, //air (0)
-0b0001000010000010, //bedrock (1)
-0b0111001110001110, //stone (2)
-0b0101101000000010, //dirt (3)
-0b0001010111000010, //grass (4)
-0b1110111100110110, //sand (5)
-0b1100011101111101, //diamond (6)
-0b0010000100000100, //coal (7)
-0b1110111011100010, //gold (8)
-0b1001110001000011, //iron (9)
-0b0001000010010001 //omniblue(10)
-};
-
+#endif
 
 
 int shadeColor(int color,int shade)

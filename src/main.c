@@ -84,12 +84,6 @@ void correctPosition(uint8_t *chunk,pos *playerPos)
 
 void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,float *Zangle)
 {
-  //player's position, rotation...
-  //to avoid using pointers during the main function
-  pos playerPos;
-  playerPos.x=playerPosition->x;
-  playerPos.y=playerPosition->y;
-  playerPos.z=playerPosition->z;
   float angleX=*Xangle;
   float angleZ=*Zangle;
   
@@ -103,8 +97,18 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
   float *cubePos=malloc(CUBE_CHUNK_X*CUBE_CHUNK_Y*CUBE_WORLD_Z*3*sizeof(float)); //pos of the cubes to display
   int size=0; //number of displayed cubes
   
-  //inventory ?
+
   int selectedCube=3;
+  
+  //inventory ?
+	
+  //player's position, rotation...
+  //to avoid using pointers during the main function
+  pos playerPos;
+  playerPos.x=playerPosition->x;
+  playerPos.y=playerPosition->y;
+  playerPos.z=playerPosition->z;
+
   
   bufClear(buffer);
   bufDisplay(buffer);
@@ -218,25 +222,32 @@ extern void Init_display();
 
 int main()
 {
-	char savePath[16]="";
+	char exit=0;
+	float angleX=5.0f,angleZ=10.0f;
+	pos playerPos;
+	
 	Init_display();
 	
 	//initialization
 	startrandom_game();
 
 	//The cube world. Huge array
-	char exit=0;
+	
 	//path of the save file
 	//position & camera rotation
-	pos playerPos;
+	initWorld(world);
+	
 	playerPos.x=101.0f;
 	playerPos.y=101.0f;
 	playerPos.z=50.1f;
-	float angleX=5.0f,angleZ=10.0f;
+	
   
 	//menu
+	#ifndef NOMENU
+	char savePath[16]="";
 	mainMenu(SCREEN_BASE_ADDRESS,&exit,world,&playerPos,&angleX,&angleZ,savePath);
-
+	#endif
+	
 	//THE GAME
 	if(!exit)
 	{

@@ -35,7 +35,8 @@ void sortCubePos(float *cubePos,uint8_t *cubeList,int size)
   int i=0;
   float *dist=malloc(size*sizeof(float));
   int *index=malloc(size*sizeof(int));
-  
+  float *cubePosImg;
+  uint8_t *cubeListImg;
   //calculates distance of each cube
   for(i=0;i<size;i++)
   {
@@ -56,10 +57,10 @@ void sortCubePos(float *cubePos,uint8_t *cubeList,int size)
   }
   
   //sort cubes with given indexes
-  float *cubePosImg=malloc(size*3*sizeof(float));
+  cubePosImg=malloc(size*3*sizeof(float));
   memcpy(cubePosImg,cubePos,size*3*sizeof(float));
   
-  uint8_t *cubeListImg=malloc(size*sizeof(uint8_t));
+  cubeListImg=malloc(size*sizeof(uint8_t));
   memcpy(cubeListImg,cubeList,size*sizeof(uint8_t));
   
   for(i=0;i<size;i++)
@@ -238,8 +239,9 @@ void renderFullWorld(void *buffer,uint8_t *world,float *cubePos,uint8_t *cubeLis
     drawCubeList(buffer,cubePos,cubeList,n,xRotation,zRotation);
     
     //progress bar
+    #ifndef NOMENU
     drawProgressBar(SCREEN_BASE_ADDRESS,c*100/(nbChunksX*nbChunksY-2));
-    
+    #endif
     bufDisplay(SCREEN_BASE_ADDRESS);
   }
   bufDisplay(SCREEN_BASE_ADDRESS);

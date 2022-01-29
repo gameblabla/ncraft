@@ -1,7 +1,7 @@
 #include "buffer.h"
 
 SDL_Surface* sdl_screen;
-Uint32 start;
+Uint64 start;
 
 #define FPS_VIDEO 60
 const float real_FPS = 1000/FPS_VIDEO;

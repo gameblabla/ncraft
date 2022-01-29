@@ -20,7 +20,7 @@ void idle()
 
 int wait_key_pressed(int key)
 {
-	SDL_Event event;
+	/*SDL_Event event;
 	Uint8 *keystate;
 	for(;;)
 	{
@@ -38,7 +38,7 @@ int wait_key_pressed(int key)
 				}
 			}
 		}
-	}
+	}*/
 }
 
 void show_msgbox(char* arr1, char* arr2)

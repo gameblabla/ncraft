@@ -43,6 +43,7 @@ void initWorld(uint8_t *world)
   }//TO DO:desert, sea, moutain
 }
 
+#ifndef NOMENU
 
 void mainMenu(void *buffer,char *exit,uint8_t *world,pos *playerPos,float *angleX,float *angleZ,char *savePath)
 {
@@ -133,4 +134,4 @@ int menuLoadWorld(void *buffer,char *menu,uint8_t *world,pos *playerPos,float *a
   return test;
 }
 
-
+#endif

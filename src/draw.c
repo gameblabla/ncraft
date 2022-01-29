@@ -1,5 +1,6 @@
 #include "draw.h"
 
+#ifndef NOMENU
 static uint8_t charMap_ascii[256][12]={
 {0,0,0,0,0,0,0,0,0,0,0,0},  /*  0 */
 {0,126,129,165,129,129,189,153,129,126,0,0},  /*  1 */
@@ -297,7 +298,7 @@ void drawString(void *buffer,char *str,int color,int x,int y)
     drawChar(buffer,str[i],color,x+i*CHAR_WIDTH+i,y);
   }
 }
-
+#endif
 
 void drawCursor(void *buffer)
 {
@@ -320,6 +321,7 @@ void drawCubeIndicator(void *buffer,int color)
   drawTriangle(buffer,color,SCREEN_GAME_WIDTH-19,0,SCREEN_GAME_WIDTH-1,0,SCREEN_GAME_WIDTH-1,9);
 }
 
+#ifndef NOMENU
 void drawProgressBar(void *buffer,int percent)
 {
   int i=0;
@@ -339,6 +341,7 @@ void drawProgressBar(void *buffer,int percent)
     bufHorizLine(buffer,1,i,1+percent*317/100,color);
   }
 }
+#endif
 
 void drawCube(void *buffer,float *vertices,int *pos,int *faces,int *colors)
 {
@@ -423,7 +426,6 @@ int isCubeOnScreen(int *pos)
 
 void drawTriangle(void *buffer,int color,int x1,int y1,int x2,int y2,int x3,int y3)
 {
-#if 0
   int i=0;
   int start=1;
   if(y1>y2)
@@ -441,7 +443,7 @@ void drawTriangle(void *buffer,int color,int x1,int y1,int x2,int y2,int x3,int 
     invertVars(&y2,&y3);
     invertVars(&x2,&x3);
   }
-  if(y2>0)
+  if(y2>0 && (y2-y1) > 0)
   {
     start=0;
     if(y1<0)
@@ -451,7 +453,7 @@ void drawTriangle(void *buffer,int color,int x1,int y1,int x2,int y2,int x3,int 
       bufHorizLine(buffer,x1+(x2-x1)*i/(y2-y1),y1+i,x1+(x3-x1)*i/(y3-y1),color);
     }
   }
-  if(y3>0)
+  if(y3>0 && (y3-y2) > 0)
   {
     start=0;
     if(y2<0)
@@ -461,65 +463,5 @@ void drawTriangle(void *buffer,int color,int x1,int y1,int x2,int y2,int x3,int 
       bufHorizLine(buffer,x2+(x3-x2)*i/(y3-y2),y2+i,x1+(x3-x1)*(y2-y1+i)/(y3-y1),color);
     }
   }
-#else
-  int i=0;
-  int start=1;
-  unsigned int calc[3];
-  int tmp;
-  if(y1>y2)
-  {
-    invertVars(&y1,&y2);
-    invertVars(&x1,&x2);
-  }
-  if(y1>y3)
-  {
-    invertVars(&y1,&y3);
-    invertVars(&x1,&x3);
-  }
-  if(y2>y3)
-  {
-    invertVars(&y2,&y3);
-    invertVars(&x2,&x3);
-  }
-  if(y2>0)
-  {
-    start=0;
-    if(y1<0)
-      start=-y1;
-    for(i=start;i<=y2-y1;i++)
-    {
-		tmp = (y2-y1);
-		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
-		else if (tmp < 1) tmp = 1;
-		calc[0] = x1+(x2-x1)*i/tmp;
-		calc[1] = y1+i;
-		tmp = (y3-y1);
-		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
-		else if (tmp < 1) tmp = 1;
-		calc[2] = x1+(x3-x1)*i/tmp;
-		bufHorizLine(buffer,calc[0],calc[1],calc[2],color);
-    }
-  }
-  if(y3>0)
-  {
-    start=0;
-    if(y2<0)
-      start=-y2;
-    for(i=start;i<=y3-y2;i++)
-    {
-		tmp = (y3-y2);
-		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
-		else if (tmp < 1) tmp = 1;
-		calc[0] = x2+(x3-x2)*i/tmp;
-		calc[1] = y2+i;
-		tmp = (y3-y1);
-		if (tmp > SCREEN_GAME_WIDTH) tmp = SCREEN_GAME_WIDTH;
-		else if (tmp < 1) tmp = 1;
-		calc[2] = x1+(x3-x1)*(y2-y1+i)/tmp;
-		
-		bufHorizLine(buffer,calc[0],calc[1],calc[2],color);
-    }
-  }
-#endif
 }
 

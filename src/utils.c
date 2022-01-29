@@ -36,20 +36,25 @@ float angleCorrect(float angle)
 
 float cos_game(float angle)
 {
-  angle=angleCorrect(angle);
-  int ipart=(int)angle;
-  float t1=costbl[ipart%360];
-  float t2=costbl[(ipart+1)%360];
-  angle=angle-(float)ipart;
-  return (t2-t1)*angle+t1;
+	int ipart;
+	float t1, t2;
+	
+	angle=angleCorrect(angle);
+	ipart=(int)angle;
+	t1=costbl[ipart%360];
+	t2=costbl[(ipart+1)%360];
+	angle=angle-(float)ipart;
+	return (t2-t1)*angle+t1;
 }
 
 float sin_game(float angle)
 {
+	int ipart;
+	float t1, t2;
   angle=angleCorrect(angle);
-  int ipart=(int)angle;
-  float t1=sintbl[ipart%360];
-  float t2=sintbl[(ipart+1)%360];
+	ipart=(int)angle;
+	t1=sintbl[ipart%360];
+	t2=sintbl[(ipart+1)%360];
   angle=angle-(float)ipart;
   return (t2-t1)*angle+t1;
 }
