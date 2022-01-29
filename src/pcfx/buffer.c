@@ -123,11 +123,7 @@ void bufHorizLine(void *buffer,int x,int y,int x2, int color)
 		  x2=SCREEN_GAME_WIDTH-1;
 		for(i=x;i<=x2;i++)
 		{
-			#ifdef _16BPP
-				*(volatile unsigned short*)(buffer+(i*2)+y*(SCREEN_GAME_WIDTH*2))=color;
-			#else
-				*(volatile unsigned char*)(buffer+i+y*SCREEN_GAME_WIDTH)=color;
-			#endif
+			bufSetPixel(buffer,i,y,color);
 		}
 	}
 }

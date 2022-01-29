@@ -113,9 +113,13 @@ void play_nCraft(void *buffer,uint8_t *world,pos *playerPosition,float *Xangle,f
   bufClear(buffer);
   bufDisplay(buffer);
   
-  //render loop
-  for(;;)
-  {
+	//render loop
+	#ifdef PCFX
+	for(;;)
+	#else
+	while(exit == 0)
+	#endif
+	{
     //wait for key pressed
     //while(!any_key_pressed() && firstDisplay==1 && falling==0)
     //{
@@ -250,7 +254,11 @@ int main()
 	playerPos.z=50.1f;
 	
 	//THE GAME
+	#ifdef PCFX
 	for(;;)
+	#else
+	if(!exit)
+	#endif
 	{
 		play_nCraft(SCREEN_BASE_ADDRESS,world,&playerPos,&angleX,&angleZ);
 		//saveWorld(SCREEN_BASE_ADDRESS,savePath,world,playerPos,angleX,angleZ);
