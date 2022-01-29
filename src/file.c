@@ -1,6 +1,6 @@
 #include "file.h"
 
-
+/*
 int scanInt(char *str)
 {
   int start=0;
@@ -31,6 +31,7 @@ void* readLine(FILE *filein, char *text)
   }while((text[0]=='/') || (text[0]=='\n'));
   return 0;
 }
+*/
 
 /*
 void listFiles(char **files,int *nbFiles)
@@ -44,7 +45,7 @@ char loadWorld(void *buffer,char *name,uint8_t *world,pos *playerPos,float *angl
   #if 0
   //"loading chunks" screen
   memset(buffer,0,SCREEN_BYTES_SIZE);
-  drawStringCenter(buffer,"Loading chunks",(has_colors) ? 0xFFFF : 0xF,100);
+  //drawStringCenter(buffer,"Loading chunks",(has_colors) ? 0xFFFF : 0xF,100);
   
   FILE *worldFile=NULL;
   worldFile=fopen(name,"r");
@@ -125,7 +126,7 @@ void saveWorld(void *buffer,char *name,uint8_t *world,pos playerPos,float angleX
 	#if 0
   //"saving chunks" screen
   memset(buffer,0,SCREEN_BYTES_SIZE);
-  drawStringCenter(buffer,"Saving chunks",(has_colors) ? 0xFFFF : 0xF,100);
+  //drawStringCenter(buffer,"Saving chunks",(has_colors) ? 0xFFFF : 0xF,100);
       
   int i,j,k;
   FILE *worldFile=NULL;

@@ -4,7 +4,11 @@
 #include "utils.h"
 
 #define SCREEN_BASE_ADDRESS sdl_screen->pixels
+#ifdef _16BPP
 #define SCREEN_BYTES_SIZE (320*240)*2
+#else
+#define SCREEN_BYTES_SIZE (320*240)
+#endif
 
 //display a buffer on the screen
 void bufDisplay(void *buffer);

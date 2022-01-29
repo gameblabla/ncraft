@@ -303,9 +303,9 @@ void drawCursor(void *buffer)
 {
   int i;
   int color=0xF;
-  if(has_colors)
+  #ifdef _16BPP
     color=0xFFFF;
-  
+  #endif
   for(i=0;i<=19;i++)
   {
     bufSetPixel(buffer,i+149,118,color);
@@ -323,7 +323,12 @@ void drawCubeIndicator(void *buffer,int color)
 void drawProgressBar(void *buffer,int percent)
 {
   int i=0;
-  int color=(has_colors) ? 0xFFFF : 0xF;
+  
+  #ifdef _16BPP
+  int color= 0xFFFF;
+  #else
+  int color = 0xF;
+  #endif
   
   for(i=230;i<239;i++)
   {

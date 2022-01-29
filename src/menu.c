@@ -50,9 +50,15 @@ void mainMenu(void *buffer,char *exit,uint8_t *world,pos *playerPos,float *angle
   char firstDisplay=0;
   int cursor=0;
   int test=1;
-  int white=(has_colors) ? 0xFFFF : 0xF;
-  int grey=(has_colors) ? 0b0111001110001110 : 0x9;
-  int blue=(has_colors) ? 0b0100001101111101 : 0xF;
+  #ifdef _16BPP
+  int white=0xFFFF;
+  int grey=0b0111001110001110;
+  int blue=0b0100001101111101;
+  #else
+  int white=0xF;
+  int grey=0x9;
+  int blue=0xF;
+  #endif
   
   if(isKeyPressed(KEY_NSPIRE_ENTER))
     sleep_game(500); //avoid passing the menu when clicking enter to launch the game

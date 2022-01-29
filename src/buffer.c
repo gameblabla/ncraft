@@ -1,6 +1,5 @@
 #include "buffer.h"
 
-int has_colors = 1;
 SDL_Surface* sdl_screen;
 Uint32 start;
 
@@ -11,8 +10,11 @@ void Init_display()
 {
 	SDL_Init( SDL_INIT_VIDEO );
 	SDL_ShowCursor(0);
+	#ifdef _16BPP
 	sdl_screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE);
-	has_colors = 1;
+	#else
+	sdl_screen = SDL_SetVideoMode(320, 240, 8, SDL_SWSURFACE);
+	#endif
 	start = SDL_GetTicks();
 }
 
@@ -48,22 +50,28 @@ void bufClear(void *buffer)
 
 void bufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
 {
-    *((unsigned short*)buffer + x + y * 320) = color;
+	#ifdef _16BPP
+		*((unsigned char*)buffer + x + y * 640) = color;
+	#else
+		*((unsigned char*)buffer + x + y * 320) = color;
+	#endif
 }
 
 void securedBufSetPixel(void *buffer,unsigned int x, unsigned int y,int color)
 {
-  if(x<320 && y<240)
-  {
-    bufSetPixel(buffer,x,y,color);
-  }
+	if (x<320 && y<240)
+	{
+		bufSetPixel(buffer,x,y,color);
+	}
 }
 
 void bufHorizLine(void *buffer,int x,int y,int x2, int color)
 {
 	int width=0,i=0;
-	if(x>x2)
+	if (x>x2)
+	{
 		invertVars(&x,&x2);
+	}
 	if(x2>=0 && x<320 && y>=0 && y<240)
 	{
 		if(x<0)
@@ -72,7 +80,11 @@ void bufHorizLine(void *buffer,int x,int y,int x2, int color)
 		  x2=319;
 		for(i=x;i<=x2;i++)
 		{
-		*(volatile unsigned short*)(buffer+i*2+y*640)=color;
+			#ifdef _16BPP
+				*(volatile unsigned char*)(buffer+(i*2)+y*640)=color;
+			#else
+				*(volatile unsigned char*)(buffer+i+y*320)=color;
+			#endif
 		}
 	}
 }

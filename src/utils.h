@@ -5,8 +5,6 @@
 #include <stdint.h>
 #include <SDL/SDL.h>
 
-extern int has_colors;
-
 extern SDL_Surface* sdl_screen;
 extern int isKeyPressed(int key);
 extern void show_msgbox(char* arr1, char* arr2);

@@ -33,35 +33,29 @@ const uint16_t cubeListColor[128]={
 int shadeColor(int color,int shade)
 {
   int newColor=0;
-  if(has_colors)
-  {
+  #ifdef _16BPP
     newColor=ceiling(color/2048+shade*2,31)*2048+ceiling(color/32%64 +shade*4,63)*32+ceiling(color%32+shade*2,31);
     return (newColor>0) ? newColor : 0;
-  }
-  else
-  {
-    return ceiling(color+shade,15);
-  }
+  #else
+  return ceiling(color+shade,15);
+  #endif
 }
 
 
 
 int getCubeColor(uint8_t index)
 {
-  if(has_colors)
-  {
+	#ifdef _16BPP
     if(index<128)
       return (int)cubeListColor[index];
     else
       return shadeColor((int)cubeListColor[256-index],1);
-  }
-  else
-  {
+	#else
     if(index<128)
       return (int)cubeListGray[index];
     else
       return shadeColor((int)cubeListGray[256-index],1);
-  }
+	#endif
 }
 
 
