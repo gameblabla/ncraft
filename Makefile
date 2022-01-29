@@ -11,4 +11,4 @@ CDOUT          = ncraft_cd
 
 include ../example.mk
 
-CFLAGS		+= -Os -fomit-frame-pointer -Isrc -Isrc/pcfx -I. -Wall -DNOMENU -DPCFX -D_16BPP
+CFLAGS		+= -Os -fomit-frame-pointer -Isrc -Isrc/pcfx -I. -Wall -DNOMENU -DPCFX

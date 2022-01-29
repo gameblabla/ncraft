@@ -94,9 +94,17 @@ void bufDisplay(void *buffer)
 	eris_king_set_kram_read(0, 1);
 	eris_king_set_kram_write(0, 1);
 	// Clear BG0's RAM
+	#ifdef _16BPP
 	for(i = 0x0; i < SCREEN_BYTES_SIZE; i++) {
 		eris_king_kram_write(framebuffer[i]);
 	}
+	#else
+	for(i = 0x0; i < SCREEN_BYTES_SIZE; i+=2) {
+		eris_king_kram_write(framebuffer[i] << 8 | framebuffer[i+1]);
+	}
+	#endif
+	
+
 	eris_king_set_kram_write(0, 1);
 }
 
