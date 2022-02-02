@@ -4,23 +4,20 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+
+#include "graphics.h"
+
 extern int isKeyPressed(int key);
 extern void show_msgbox(char* arr1, char* arr2);
 extern void sleep_game(int sleep);
 extern int wait_key_pressed();
 
-#define SCREEN_GAME_WIDTH 128
-#define SCREEN_GAME_HEIGHT 192
+#define SCREEN_GAME_WIDTH 384
+#define SCREEN_GAME_HEIGHT 160
 
-#ifdef _16BPP
-#define SCREEN_BYTES_SIZE (SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)*2
-extern unsigned short framebuffer[(SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)];
-#else
 #define SCREEN_BYTES_SIZE (SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)
-extern unsigned char framebuffer[(SCREEN_GAME_WIDTH*SCREEN_GAME_HEIGHT)];
-#endif
 
-#define SCREEN_BASE_ADDRESS framebuffer
+#define SCREEN_BASE_ADDRESS ipDraw->videoBuffer
 
 #define KEY_NSPIRE_ESC 6
 
